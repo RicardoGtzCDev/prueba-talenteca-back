@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using back;
 
@@ -11,9 +12,11 @@ using back;
 namespace back.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230504212415_Agregar_Usuario_Contraseña")]
+    partial class Agregar_Usuario_Contraseña
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,99 +29,78 @@ namespace back.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
+                        .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Codigo")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasColumnOrder(1);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)")
-                        .HasColumnOrder(2);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Imagen")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(4);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Precio")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnOrder(3);
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Stock")
-                        .HasColumnType("int")
-                        .HasColumnOrder(5);
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Articulos", (string)null);
+                    b.ToTable("Articulos");
                 });
 
             modelBuilder.Entity("Cliente", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
+                        .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ApellidoMaterno")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnOrder(5);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ApellidoPaterno")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnOrder(4);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Contraseña")
                         .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)")
-                        .HasColumnOrder(2);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Direccion")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(6);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnOrder(1);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnOrder(3);
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Clientes", (string)null);
+                    b.ToTable("Clientes");
                 });
 
             modelBuilder.Entity("ClienteArticulo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
+                        .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
@@ -129,8 +111,7 @@ namespace back.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(3);
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -138,40 +119,35 @@ namespace back.Migrations
 
                     b.HasIndex("ClienteId");
 
-                    b.ToTable("ClientesArticulos", (string)null);
+                    b.ToTable("ClientesArticulos");
                 });
 
             modelBuilder.Entity("Tienda", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
+                        .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Direccion")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(2);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sucursal")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)")
-                        .HasColumnOrder(1);
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tiendas", (string)null);
+                    b.ToTable("Tiendas");
                 });
 
             modelBuilder.Entity("TiendaArticulo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
+                        .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
@@ -179,8 +155,7 @@ namespace back.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(3);
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("TiendaId")
                         .HasColumnType("int");
@@ -191,7 +166,7 @@ namespace back.Migrations
 
                     b.HasIndex("TiendaId");
 
-                    b.ToTable("TiendasArticulos", (string)null);
+                    b.ToTable("TiendasArticulos");
                 });
 
             modelBuilder.Entity("ClienteArticulo", b =>

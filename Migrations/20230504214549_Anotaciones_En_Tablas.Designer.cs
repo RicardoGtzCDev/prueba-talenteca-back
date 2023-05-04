@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using back;
 
@@ -11,9 +12,11 @@ using back;
 namespace back.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230504214549_Anotaciones_En_Tablas")]
+    partial class Anotaciones_En_Tablas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,7 +61,7 @@ namespace back.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Articulos", (string)null);
+                    b.ToTable("Articulos");
                 });
 
             modelBuilder.Entity("Cliente", b =>
@@ -110,7 +113,7 @@ namespace back.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Clientes", (string)null);
+                    b.ToTable("Clientes");
                 });
 
             modelBuilder.Entity("ClienteArticulo", b =>
@@ -138,7 +141,7 @@ namespace back.Migrations
 
                     b.HasIndex("ClienteId");
 
-                    b.ToTable("ClientesArticulos", (string)null);
+                    b.ToTable("ClientesArticulos");
                 });
 
             modelBuilder.Entity("Tienda", b =>
@@ -163,7 +166,7 @@ namespace back.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tiendas", (string)null);
+                    b.ToTable("Tiendas");
                 });
 
             modelBuilder.Entity("TiendaArticulo", b =>
@@ -191,7 +194,7 @@ namespace back.Migrations
 
                     b.HasIndex("TiendaId");
 
-                    b.ToTable("TiendasArticulos", (string)null);
+                    b.ToTable("TiendasArticulos");
                 });
 
             modelBuilder.Entity("ClienteArticulo", b =>

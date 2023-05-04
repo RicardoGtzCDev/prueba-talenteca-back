@@ -14,5 +14,12 @@ namespace back
         public DbSet<ClienteArticulo> ClientesArticulos { get; set; }
         public DbSet<Tienda> Tiendas { get; set; }
         public DbSet<TiendaArticulo> TiendasArticulos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Cliente>()
+                .HasIndex(c => c.Email)
+                .IsUnique();
+        }
     }
 }
