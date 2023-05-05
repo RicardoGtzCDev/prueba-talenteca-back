@@ -1,9 +1,8 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using back.Models.Context;
+using Microsoft.AspNetCore.Authorization;
 
-namespace back.Controllers
+namespace Clientes.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -17,11 +16,12 @@ namespace back.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Post(CrearClienteDTO input)
         {
             try
             {
-                Cliente cliente = new Cliente()
+                Cliente cliente = new Cliente
                 {
                     Email = input.Email,
                     Contraseña = input.Contraseña,
@@ -32,7 +32,16 @@ namespace back.Controllers
                 };
                 _dbContext.Clientes.Add(cliente);
                 _dbContext.SaveChanges();
-                return Ok(cliente);
+                ClienteResponse response = new ClienteResponse
+                {
+                    Id = cliente.Id,
+                    Email = cliente.Email,
+                    Nombre = cliente.Nombre,
+                    ApellidoPaterno = cliente.ApellidoPaterno,
+                    ApellidoMaterno = cliente.ApellidoMaterno,
+                    Direccion = cliente.Direccion,
+                };
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -41,11 +50,23 @@ namespace back.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Get()
         {
             try
             {
-                List<Cliente> clientes = _dbContext.Clientes.ToList();
+                List<ClienteResponse> clientes = _dbContext
+                    .Clientes
+                    .Select(c => new ClienteResponse
+                    {
+                        Id = c.Id,
+                        Email = c.Email,
+                        Nombre = c.Nombre,
+                        ApellidoPaterno = c.ApellidoPaterno,
+                        ApellidoMaterno = c.ApellidoMaterno,
+                        Direccion = c.Direccion,    
+                    })
+                    .ToList();
                 return Ok(clientes);
             }
             catch (Exception ex)
@@ -55,13 +76,23 @@ namespace back.Controllers
         }
 
         [HttpGet("id")]
+        [Authorize]
         public IActionResult Get(int id)
         {
             try
             {
                 Cliente? cliente = _dbContext.Clientes.FirstOrDefault(c => c.Id == id);
                 if (cliente == null) { return NotFound(); }
-                return Ok(cliente);
+                ClienteResponse response = new ClienteResponse
+                {
+                    Id = cliente.Id,
+                    Email = cliente.Email,
+                    Nombre = cliente.Nombre,
+                    ApellidoPaterno = cliente.ApellidoPaterno,
+                    ApellidoMaterno = cliente.ApellidoMaterno,
+                    Direccion = cliente.Direccion,
+                };
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -70,6 +101,7 @@ namespace back.Controllers
         }
 
         [HttpPatch("id")]
+        [Authorize]
         public IActionResult Patch(int id, ActualizarClienteDTO input)
         {
             try
@@ -83,7 +115,16 @@ namespace back.Controllers
                 cliente.ApellidoMaterno = String.IsNullOrEmpty(input.ApellidoMaterno) ? cliente.ApellidoMaterno : input.ApellidoMaterno;
                 cliente.Direccion = String.IsNullOrEmpty(input.Direccion) ? cliente.Direccion : input.Direccion;
                 _dbContext.SaveChanges();
-                return Ok(cliente);
+                ClienteResponse response = new ClienteResponse
+                {
+                    Id = cliente.Id,
+                    Email = cliente.Email,
+                    Nombre = cliente.Nombre,
+                    ApellidoPaterno = cliente.ApellidoPaterno,
+                    ApellidoMaterno = cliente.ApellidoMaterno,
+                    Direccion = cliente.Direccion,
+                };
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -92,11 +133,12 @@ namespace back.Controllers
         }
 
         [HttpDelete("id")]
+        [Authorize]
         public IActionResult Delete(int id)
         {
             try
             {
-                 Cliente? cliente = _dbContext.Clientes.FirstOrDefault(c => c.Id == id);
+                Cliente? cliente = _dbContext.Clientes.FirstOrDefault(c => c.Id == id);
                 if (cliente == null) { return NotFound(); }
                 _dbContext.Clientes.Remove(cliente);
                 _dbContext.SaveChanges();
