@@ -1,4 +1,4 @@
-using back;
+using back.Models.Context;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

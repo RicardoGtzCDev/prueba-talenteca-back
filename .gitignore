@@ -9,6 +9,7 @@ appsettings.*
 
 # Extra Folders
 .vs
+.vscode
 bin
 obj
 

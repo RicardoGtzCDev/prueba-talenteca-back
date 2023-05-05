@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace back
+namespace back.Models.Context
 {
     public class AppDbContext : DbContext
     {
