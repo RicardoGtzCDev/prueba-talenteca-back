@@ -60,6 +60,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("SQL_AZUREDB"))
     );
 
+//CORS
+builder.Services.AddCors(policyBuilder =>
+    policyBuilder.AddDefaultPolicy(policy =>
+        policy.WithOrigins("*").AllowAnyHeader().AllowAnyHeader())
+);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
