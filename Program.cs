@@ -61,10 +61,16 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     );
 
 //CORS
-builder.Services.AddCors(policyBuilder =>
-    policyBuilder.AddDefaultPolicy(policy =>
-        policy.WithOrigins("*").AllowAnyHeader().AllowAnyHeader())
-);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyAllowedOrigins",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200") // fíjate que el puerta está incluido
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
@@ -77,7 +83,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors();
+app.UseCors("MyAllowedOrigins");
 
 app.UseAuthentication();
 
