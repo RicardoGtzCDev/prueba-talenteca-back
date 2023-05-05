@@ -52,7 +52,7 @@ namespace Tiendas.Controllers
             }
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         [Authorize]
         public IActionResult Get(int id)
         {
@@ -68,7 +68,7 @@ namespace Tiendas.Controllers
             }
         }
 
-        [HttpPatch("id")]
+        [HttpPatch("{id}")]
         [Authorize]
         public IActionResult Patch(int id, ActualizarTiendaDTO input)
         {
@@ -87,7 +87,7 @@ namespace Tiendas.Controllers
             }
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         [Authorize]
         public IActionResult Delete(int id)
         {

@@ -75,7 +75,7 @@ namespace Clientes.Controllers
             }
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         [Authorize]
         public IActionResult Get(int id)
         {
@@ -100,7 +100,7 @@ namespace Clientes.Controllers
             }
         }
 
-        [HttpPatch("id")]
+        [HttpPatch("{id}")]
         [Authorize]
         public IActionResult Patch(int id, ActualizarClienteDTO input)
         {
@@ -132,7 +132,7 @@ namespace Clientes.Controllers
             }
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         [Authorize]
         public IActionResult Delete(int id)
         {

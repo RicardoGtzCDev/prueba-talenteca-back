@@ -55,7 +55,7 @@ namespace Articulos.Controllers
             }
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         [Authorize]
         public IActionResult Get(int id)
         {
@@ -71,7 +71,7 @@ namespace Articulos.Controllers
             }
         }
 
-        [HttpPatch("id")]
+        [HttpPatch("{id}")]
         [Authorize]
         public IActionResult Patch(int id, ActualizarArticuloDTO input)
         {
@@ -93,7 +93,7 @@ namespace Articulos.Controllers
             }
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         [Authorize]
         public IActionResult Delete(int id)
         {
